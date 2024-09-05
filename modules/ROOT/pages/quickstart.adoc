@@ -29,6 +29,7 @@ neither the connector nor this guide depends on the contents of the documents in
 
 You'll also need a local installation of Apache Kafka or Confluent Platform Kafka.
 
+[[set-up-kafka]]
 == Set Up Kafka
 
 If you already have an installation of Kafka and know how to start the servers, feel free to skip this section.
@@ -100,6 +101,10 @@ TIP: If you're connecting to Capella, make sure to read xref:cloud.adoc[].
 
 Kafka connectors can be run in https://kafka.apache.org/documentation/#connect_running[standalone or distributed] mode.
 For now let's run the connector in standalone mode, using the CLASSPATH environment variable to include the Couchbase connector JAR in the class path.
+
+TIP: The `connect-standalone` and `connect-distributed` commands are part of Kafka.
+Make sure your `PATH` environment variable includes Kafka's `bin` directory.
+See <<set-up-kafka>> for details.
 
 For Confluent Platform Kafka:
 
