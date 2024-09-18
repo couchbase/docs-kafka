@@ -1,4 +1,4 @@
-.xref:index.adoc[Kafka Connector]
+* xref:index.adoc[]
 * xref:quickstart.adoc[Quickstart]
 * xref:delivery-guarantees.adoc[Delivery Guarantees]
 * xref:source-configuration-options.adoc[Source Configuration Options]
