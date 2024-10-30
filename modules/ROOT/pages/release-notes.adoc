@@ -27,6 +27,51 @@ When developing a custom component, include the connector's Java API in your Mav
 ----
 
 
+[[v4.2.4]]
+== Version 4.2.4 (31 Oct 2024)
+
+https://packages.couchbase.com/clients/kafka/4.2.4/couchbase-kafka-connect-couchbase-4.2.4.zip[Download]
+
+In addition to the usual dependency version bumps, this release improves some behaviors and adds new connector configuration properties.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-353[KAFKAC-353]:
+*Source* When streaming from `SAVED_OFFSET_OR_NOW`, you can configure the connector to immediately save the "now" source offsets for all Couchbase partitions immediately on startup, instead of waiting for events to arrive for a partition before storing that partition's source offset.
++
+To enable this new behavior, specify a topic name for xref:source-configuration-options.adoc#couchbase.initial.offset.topic[the new `couchbase.initial.offset.topic` connector config property].
++
+NOTE: This new config property is "uncommitted API", meaning it may change without notice.
+It may be promoted to "committed API" in a subsequent minor version.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-358[KAFKAC-358]:
+*Sink* xref:sink-configuration-options.adoc#couchbase.topic.to.document.id[The new `couchbase.topic.to.document.id` connector config property] lets you override the `couchbase.document.id` property for specific topics.
+The value is a comma-delimited list of map entries, where each map entry looks like: `topicName=${/json/pointer/to/id/field}`
++
+Thank you to community member Hafiz
+Hussain Haroon Rasheed (https://github.com/HafizHussain31[HafizHussain31]) for contributing this feature.
++
+NOTE: This new config property is "uncommitted API", meaning it may change without notice.
+It may be promoted to "committed API" in a subsequent minor version.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-359[KAFKAC-359]:
+The connector now includes provider configuration files for https://cwiki.apache.org/confluence/display/KAFKA/KIP-898%3A+Modernize+Connect+plugin+discovery[KIP-898: Modernize Connect plugin discovery].
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-361[KAFKAC-361]:
+Upgrade Couchbase Java SDK from `3.7.1` to `3.7.4`.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-360[KAFKAC-360]:
+Upgrade DCP client from `0.51.0` to `0.52.0`.
+
+=== Bug Fixes
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-352[KAFKAC-352]:
+*Source* The default event filter, `com.couchbase.connect.kafka.filter.AllPassFilter`, now excludes events from Couchbase system scopes.
+(System scopes store internal metadata that is typically uninteresting to developers.)
++
+TIP: If you wish to keep the previous behavior of including system scopes, set the `couchbase.event.filter` property to `com.couchbase.connect.kafka.filter.AllPassIncludingSystemFilter`.
+
+
 [[v4.2.3]]
 == Version 4.2.3 (25 Jul 2024)
 
