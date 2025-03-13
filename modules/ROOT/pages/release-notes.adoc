@@ -26,6 +26,39 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.2.7]]
+== Version 4.2.7 (12 Mar 2025)
+
+https://packages.couchbase.com/clients/kafka/4.2.7/couchbase-kafka-connect-couchbase-4.2.7.zip[Download]
+
+This maintenance release includes an important fix for a potential resource leak, and a handful of minor improvements.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-366[KAFKAC-366]:
+*Source* Added an optional `onRecordCommitted` method to the `SourceHandler` interface.
+This method is called whenever the Kafka Connect framework calls `SourceTask.commitRecord`.
+Subclasses may override this method to do something special with committed record metadata beyond the usual document lifecycle logging.
+The default implementation does nothing, which is always okay.
++
+Thank you to new contributor Eyal Nussbaum!
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-369[KAFKAC-369]:
+*Source* `OFFSET_COMMIT_HOOK` lifecycle messages are now logged at DEBUG level instead of INFO.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-374[KAFKAC-374]:
+Upgrade DCP client from `0.52.0` to `0.53.0`.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-375[KAFKAC-375]:
+Upgrade Couchbase Java SDK from `3.7.5` to `3.7.9`.
+
+=== Bug Fixes
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-370[KAFKAC-370]:
+*Source* Fixed a race condition that could cause a source task to fail to disconnect its DCP client if the task was stopped immediately after starting.
+This could lead to a resource leak for the Kafka Connect worker process, and performance issues for Couchbase Server.
+
+
 [[v4.2.6]]
 == Version 4.2.6 (21 Nov 2024)
 
