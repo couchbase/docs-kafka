@@ -194,7 +194,7 @@ UNCOMMITTED; this feature may change in a patch release without notice.
 [[couchbase.topic]]
 === `couchbase.topic`
 
-Name of the default Kafka topic to publish data to, for collections that don't have an entry in the `couchbase.collection.to.topic` map.
+Name of the Kafka topic to publish data to.
 
 This is a format string that recognizes the following placeholders:
 
@@ -203,6 +203,12 @@ ${bucket} refers to the bucket containing the document.
 ${scope} refers to the scope containing the document.
 
 ${collection} refers to the collection containing the document.
+
+*This property supports contextual overrides.* The context is the name of the collection containing the document, qualified by scope.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.topic[myScope.myCollection]=some-other-topic`
 
 * Type: string
 * Default: `${bucket}.${scope}.${collection}`
@@ -221,6 +227,8 @@ For example, if you want to write messages from collection "scope-a.invoices" to
 Defaults to an empty map.
 For collections not present in this map, the destination topic is determined by the `couchbase.topic` config property.
 
+WARNING: *DEPRECATED.* Instead, please use `couchbase.topic` with contextual overrides.
+
 * Since: 4.1.8
 
 * Type: list
@@ -233,6 +241,8 @@ For collections not present in this map, the destination topic is determined by 
 
 The fully-qualified class name of the source handler to use.
 The source handler determines how the Couchbase document is converted into a Kafka record.
+
+The class must implement either `com.couchbase.connect.kafka.handler.source.SourceHandler` or `com.couchbase.connect.kafka.handler.source.MultiSourceHandler`.
 
 To publish JSON messages identical to the Couchbase documents, use `com.couchbase.connect.kafka.handler.source.RawJsonSourceHandler` and set `value.converter` to `org.apache.kafka.connect.converters.ByteArrayConverter`.
 
@@ -301,7 +311,8 @@ UNCOMMITTED; this feature may change in a patch release without notice.
 The class name of the event filter to use.
 The event filter determines whether a database change event is ignored.
 
-As of version 4.2.4, the default filter ignores events from the Couchbase `_system` scope.
+As of version 4.3.0, the default filter ignores events from the Couchbase `_system` scope, and also ignores transaction metadata documents (documents whose keys start with "_txn:").
+
 If you are interested in those events too, set this property to `com.couchbase.connect.kafka.filter.AllPassIncludingSystemFilter`.
 
 See also `couchbase.black.hole.topic`.
@@ -423,6 +434,27 @@ Requires Couchbase Server 7.0 or later.
 
 * Type: list
 * Default: `""`
+* Importance: medium
+
+[[couchbase.jsonpath.filter]]
+=== `couchbase.jsonpath.filter`
+
+If you wish to filter the documents being sent, in addition to or instead of using a custom Filter class, this is applied before the couchbase.event.filter or the couchbase.source.handler
+
+A document passes the jsonpath filter if the expression matches something in the document.
+If the property is blank or not specified then all documents will pass
+
+Examples and uses of jsonpath can be found here: https://github.com/json-path/JsonPath
+
+*This property supports contextual overrides.* The context is the name of the collection containing the document, qualified by scope.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.jsonpath.filter[myScope.myCollection]=$.key`
+
+* Type: string
+* Default: `""`
+* Valid Values: A JSONPath expression
 * Importance: medium
 
 == Database Change Protocol
