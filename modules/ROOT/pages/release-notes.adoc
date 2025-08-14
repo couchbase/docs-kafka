@@ -26,6 +26,79 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.0]]
+== Version 4.3.0 (13 Aug 2025)
+
+https://packages.couchbase.com/clients/kafka/4.3.0/couchbase-kafka-connect-couchbase-4.3.0.zip[Download]
+
+This release adds contextual overrides for connector config properties, support for filtering using JSONPath expressions, and various minor improvements.
+
+WARNING: Watch out for a change to the network detection heuristic.
+If the connector is unable to connect to Couchbase Server after the upgrade, you might need to specify `couchbase.network=default` in your connector config.
+
+=== Behavioral Changes
+
+* https://jira.issues.couchbase.com/browse/JVMCBC-1660[JVMCBC-1660]:
+The `auto` network selection heuristic has been changed to fall back to the `external` network if there is no exact address match and the `external` network is present.
++
+Previously, if there was no exact match between an address in the connection string and an address in the cluster topology reported by the server, the connector would select the `default` network.
+Now, if there is no match and an `external` network is present, the connector selects the `external` network.
++
+TIP: If this change causes the connector to select the incorrect network for your deployment (you'll know because the connector will be unable to connect to the Couchbase Server cluster), specify `couchbase.network=default` in your connector config to force the connector to use the same network as before.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-400[KAFKAC-400]:
+*Source*
+The default filter (`AllPassFilter`) now filters out documents whose IDs start with `_txn:`.
+These documents contain Couchbase transaction metadata, and might not be JSON. Filtering them out prevents warnings like:
++
+----
+Skipping non-JSON document: bucket=<bucket> key=_default._default._txn:client-record
+----
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-401[KAFKAC-401]:
+*Source*
+The default filter (`AllPassFilter`) now _actually_ filters out documents in the Couchbase system scope.
+This feature was originally announced in connector version 4.2.4, but it didn't work until now.
+
+If you wish to continue receiving transaction metadata and system documents, configure the source connector like this:
+
+[source,properties]
+----
+couchbase.event.filter=com.couchbase.connect.kafka.filter.AllPassIncludingSystemFilter
+----
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-383[KAFKAC-383]:
+*Source*
+The new `couchbase.jsonpath.filter` connector config property lets you filter out documents that do not match some https://github.com/json-path/JsonPath[JSONPath expression].
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-382[KAFKAC-382]: Certain connector config properties now support contextual overrides.
+This lets you have a default value for a property, and override the default in different contexts.
++
+In the source connector, the context is usually the collection a document came from.
+In the sink connector, the context is usually the Kafka topic a record came from.
++
+See the source/sink configuration options documentation for examples and information about which properties support contextual overrides.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-398[KAFKAC-398]:
+*Source*
+Metrics reported by the connector are now tagged with the UUID of the Couchbase cluster and the name of the bucket.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-390[KAFKAC-390]:
+Lifecycle milestone messages are now logged to a category suffixed by the milestone type.
+For example, `SOURCE_OFFETS_READ` events are now logged to category `com.couchbase.connect.kafka.SourceDocumentLifecycle.SOURCE_OFFSETS_READ`.
+This lets you filter the events you're interested in by configuring the log levels for the logging categories specific to each event type.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-397[KAFKAC-397]:
+The connector no longer depends on Apache Commons Lang.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-402[KAFKAC-402]:
+Upgraded Couchbase Java SDK from `3.8.0` to `3.9.0`
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-403[KAFKAC-403]:
+Upgraded DCP client from `0.54.0` to `0.55.0`
+
 [[v4.2.8]]
 == Version 4.2.8 (22 Apr 2025)
 

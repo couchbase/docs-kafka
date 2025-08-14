@@ -194,11 +194,17 @@ UNCOMMITTED; this feature may change in a patch release without notice.
 [[couchbase.default.collection]]
 === `couchbase.default.collection`
 
-Qualified name (scope.collection or bucket.scope.collection) of the destination collection for messages from topics that don't have an entry in the `couchbase.topic.to.collection` map.
+Qualified name (scope.collection or bucket.scope.collection) of the destination collection.
 
 If the bucket component contains a dot, escape it by enclosing it in backticks.
 
 If the bucket component is omitted, it defaults to the value of the `couchbase.bucket` property.
+
+*This property supports contextual overrides.* The context is the name of the Kafka topic the record came from.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.default.collection[widgets]=inventory.widgets`
 
 * Type: string
 * Default: `_default._default`
@@ -221,6 +227,8 @@ For example, if you want to write messages from topic "topic1" to collection "sc
 
 Defaults to an empty map, with all documents going to the collection specified by `couchbase.default.collection`.
 
+WARNING: *DEPRECATED.* Instead, please use `couchbase.default.collection` with contextual overrides.
+
 * Type: list
 * Default: `""`
 * Valid Values: topic1=scope.collection,topic2=other-bucket.scope.collection,... If a bucket component contains a dot, escape it by enclosing it in backticks.
@@ -239,6 +247,8 @@ For example, if documents from topic "topic1" should be assigned document IDs th
 Defaults to an empty map, which means the value of the `couchbase.document.id` configuration property is applied to documents from all topics.
 
 UNCOMMITTED; this feature may change in a patch release without notice.
+
+WARNING: *DEPRECATED.* Instead, please use `couchbase.document.id` with contextual overrides.
 
 * Since: 4.2.4
 
@@ -279,8 +289,16 @@ WARNING: *DEPRECATED.* Please set the `couchbase.sink.handler` property instead.
 [[couchbase.document.id]]
 === `couchbase.document.id`
 
-Format string to use for the Couchbase document ID (overriding the message key).
+Format string to use for the Couchbase document ID.
 May refer to document fields via placeholders like ${/path/to/field}
+
+If not specified, the Couchbase document ID is the Kafka record key.
+
+*This property supports contextual overrides.* The context is the name of the Kafka topic the record came from.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.document.id[widgets]=widget::${/widgetId}`
 
 * Type: string
 * Default: `""`
@@ -290,6 +308,12 @@ May refer to document fields via placeholders like ${/path/to/field}
 === `couchbase.remove.document.id`
 
 Whether to remove the ID identified by 'couchbase.documentId' from the document before storing in Couchbase.
+
+*This property supports contextual overrides.* The context is the name of the Kafka topic the record came from.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.remove.document.id[widgets]=true`
 
 * Type: boolean
 * Default: `false`
@@ -302,6 +326,12 @@ Document expiration time specified as an integer followed by a time unit (s = se
 For example, to have documents expire after 30 minutes, set this value to "30m".
 
 A value of "0" (the default) means documents never expire.
+
+*This property supports contextual overrides.* The context is the name of the Kafka topic the record came from.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.document.expiration[alerts]=14d`
 
 * Type: string
 * Default: `0`
