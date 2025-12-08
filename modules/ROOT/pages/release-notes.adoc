@@ -26,6 +26,28 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.2]]
+== Version 4.3.2 (8 Dec 2025)
+
+https://packages.couchbase.com/clients/kafka/4.3.2/couchbase-kafka-connect-couchbase-4.3.2.zip[Download]
+
+This release adds experimental support for Schema Registry enforcement, and upgrades dependency versions.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-408[KAFKAC-408]:
+*Source*
+Add experimental support for schema enforcement for the source connector using Avro and the Confluent Schema Registry.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-413[KAFKAC-413]:
+Upgraded Couchbase Java SDK from `3.9.2` to `3.10.0`
+
+=== Bug Fixes
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-412[KAFKAC-412]:
+*Source*
+JSONPath filters now correctly ignore non-json documents.
+
 [[v4.3.1]]
 == Version 4.3.1 (22 Oct 2025)
 

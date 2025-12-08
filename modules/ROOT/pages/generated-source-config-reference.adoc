@@ -252,31 +252,6 @@ See that property's documentation for details.
 * Type: class
 * Importance: medium
 
-[[couchbase.value.schema]]
-=== `couchbase.value.schema`
-
-The schema to apply to the value of each record.
-
-This property will be ignored unless the source handler specified by `couchbase.source.handler` supports it.
-
-The built-in `com.couchbase.connect.kafka.handler.source.ConfigurableSchemaSourceHandler` supports this property.
-ConfigurableSchemaSourceHandler expects the schema to be an Avro Schema Record, stored in a JSON object.
-Reference: https://avro.apache.org/docs/1.12.0/specification/
-
-ConfigurableSchemaSourceHandler will filter out documents that do not have a JSON Object at the root, and any that do not match the specified Schema..
-
-*This property supports contextual overrides.* The context is the name of the collection to apply the schema to, qualified by scope.
-Specify a context by enclosing it in square brackets and appending it to the property name.
-When there is no matching override, the value of the base property (without brackets) is used instead.
-
-* Override example: `couchbase.value.schema[myScope.myCollection]={"type": "typeName", ...attributes...}`
-
-UNCOMMITTED; this feature may change in a patch release without notice.
-
-* Type: string
-* Default: `""`
-* Importance: medium
-
 [[couchbase.headers]]
 === `couchbase.headers`
 
@@ -372,9 +347,10 @@ This lets the connector initialize the missing source offsets to "now" (the curr
 
 The synthetic records have a value of null, and the same key:
 
-[source]
 ----
+
 __COUCHBASE_INITIAL_OFFSET_TOMBSTONE__a54ee32b-4a7e-4d98-aa36-45d8417e942a
+
 ----
 
 Consumers of this topic must ignore (or tolerate) these records.
@@ -480,6 +456,65 @@ When there is no matching override, the value of the base property (without brac
 * Type: string
 * Default: `""`
 * Valid Values: A JSONPath expression
+* Importance: medium
+
+== Schema
+
+[[couchbase.value.schema]]
+=== `couchbase.value.schema`
+
+The schema to apply to the value of each record.
+
+This property will be ignored unless the source handler specified by `couchbase.source.handler` supports it.
+
+The built-in `com.couchbase.connect.kafka.handler.source.ConfigurableSchemaSourceHandler` supports this property.
+ConfigurableSchemaSourceHandler expects the schema to be an Avro Schema Record, stored in a JSON object.
+Reference: https://avro.apache.org/docs/1.12.0/specification/
+
+ConfigurableSchemaSourceHandler will filter out documents that do not have a JSON Object at the root, and any that do not match the specified Schema..
+
+*This property supports contextual overrides.* The context is the name of the collection to apply the schema to, qualified by scope.
+Specify a context by enclosing it in square brackets and appending it to the property name.
+When there is no matching override, the value of the base property (without brackets) is used instead.
+
+* Override example: `couchbase.value.schema[myScope.myCollection]={"type": "typeName", ...attributes...}`
+
+UNCOMMITTED; this feature may change in a patch release without notice.
+
+* Type: string
+* Default: `""`
+* Importance: medium
+
+[[couchbase.schema.mismatch.topic]]
+=== `couchbase.schema.mismatch.topic`
+
+This property will be ignored unless the source handler specified by `couchbase.source.handler` supports it.
+The built-in 'com.couchbase.connect.kafka.handler.source.SchemaRegistrySourceHandler' supports this property.
+
+If set to a non-empty string, Documents that do not match the registered schema for a topic will be sent to the specified schema.
+
+If left empty, Documents that do not match the registered schema for a topic will cause the Connector Task to fail.
+
+UNCOMMITTED; this feature may change in a patch release without notice.
+
+* Type: string
+* Default: `""`
+* Importance: medium
+
+[[couchbase.missing.schema.topic]]
+=== `couchbase.missing.schema.topic`
+
+This property will be ignored unless the source handler specified by `couchbase.source.handler` supports it.
+The built-in 'com.couchbase.connect.kafka.handler.source.SchemaRegistrySourceHandler' supports this property.
+
+If set to a non-empty string, Documents sent to a topic with no registered schema will be sent to the specified missing schema topic
+
+If left empty, Documents sent to a topic with no registered schema will cause the Connector Task to fail.
+
+UNCOMMITTED; this feature may change in a patch release without notice.
+
+* Type: string
+* Default: `""`
 * Importance: medium
 
 == Database Change Protocol
