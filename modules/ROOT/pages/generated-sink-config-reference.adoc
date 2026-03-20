@@ -519,6 +519,8 @@ This property is specific to `SubDocumentSinkHandler`.
 
 Whether to add the parent paths if they are missing in the document.
 
+This property being set to false has no effect if `couchbase.subdocument.create.document` is set to true.
+
 This property is specific to `SubDocumentSinkHandler`.
 
 * Type: boolean

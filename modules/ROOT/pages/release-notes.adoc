@@ -26,6 +26,31 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.4]]
+== Version 4.3.4 (20 Mar 2026)
+
+https://packages.couchbase.com/clients/kafka/4.3.4/couchbase-kafka-connect-couchbase-4.3..zip[Download]
+
+This maintenance release includes a few minor improvements.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-418[KAFKAC-418]:
+*Sink*
+Make documentation clearer for subdocument handler create path config option
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-420[KAFKAC-420]:
+Upgraded Couchbase Java SDK from `3.10.1` to `3.11.1`
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-421[KAFKAC-421]:
+Upgraded DCP client from `0.56.0` to `0.57.0`
+
+=== Bug Fixes
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-419[KAFKAC-419]:
+*Source*
+DeserializeJson transform now correctly ignores JSON primitives and Arrays
+
 [[v4.3.3]]
 == Version 4.3.3 (20 Jan 2026)
 
