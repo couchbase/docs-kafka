@@ -26,10 +26,23 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.5]]
+== Version 4.3.5 (19 May 2026)
+
+https://packages.couchbase.com/clients/kafka/4.3.5/couchbase-kafka-connect-couchbase-4.3.5.zip[Download]
+
+This maintenance release includes a few minor improvements.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-423[KAFKAC-423]:
+*Source*
+The DeserializeJson transform now gives the record a boolean header 'couchbase.value.is.json.object' if the root of the document is a JSON Object
+
 [[v4.3.4]]
 == Version 4.3.4 (20 Mar 2026)
 
-https://packages.couchbase.com/clients/kafka/4.3.4/couchbase-kafka-connect-couchbase-4.3..zip[Download]
+https://packages.couchbase.com/clients/kafka/4.3.4/couchbase-kafka-connect-couchbase-4.3.4.zip[Download]
 
 This maintenance release includes a few minor improvements.
 
