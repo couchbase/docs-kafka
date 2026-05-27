@@ -26,6 +26,18 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.6]]
+== Version 4.3.6 (26 May 2026)
+
+https://packages.couchbase.com/clients/kafka/4.3.6/couchbase-kafka-connect-couchbase-4.3.6.zip[Download]
+
+This maintenance release includes a dependency upgrade for bugfixes.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-425[KAFKAC-425]:
+Upgraded Couchbase Java SDK from `3.11.1` to `3.11.3`
+
 [[v4.3.5]]
 == Version 4.3.5 (19 May 2026)
 
