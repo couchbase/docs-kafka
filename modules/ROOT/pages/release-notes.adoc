@@ -26,6 +26,28 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.7]]
+== Version 4.3.7 (19 Aug 2026)
+
+https://packages.couchbase.com/clients/kafka/4.3.7/couchbase-kafka-connect-couchbase-4.3.7.zip[Download]
+
+This maintenance release includes a new SchemalessJsonConverter and some dependency updates.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-427[KAFKAC-427]:
+The new SchemalessJsonConverter is designed to work interchangeably with the JsonConverter without all the schema code under the hood.
+It is now used internally instead of the JsonConverter for certain parts of the Sink Connector.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-428[KAFKAC-428]:
+Upgraded Jackson from `2.20.1` to `2.21.5`
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-429[KAFKAC-429]:
+Upgraded Micrometer from `1.10.4` to `1.15.12`
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-430[KAFKAC-430]:
+Upgraded Jsoup from `1.21.2` to `1.23.1`
+
 [[v4.3.6]]
 == Version 4.3.6 (26 May 2026)
 
