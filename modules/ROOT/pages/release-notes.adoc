@@ -26,6 +26,25 @@ When developing a custom component, include the connector's Java API in your Mav
 </dependency>
 ----
 
+[[v4.3.8]]
+== Version 4.3.8 (15 Sep 2026)
+
+https://packages.couchbase.com/clients/kafka/4.3.8/couchbase-kafka-connect-couchbase-4.3.8.zip[Download]
+
+This maintenance release includes a new SchemalessJsonConverter and some dependency updates.
+
+=== Enhancements
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-431[KAFKAC-431]:
+Add ability to specify cipher suites for the connection to Couchbase clusters.
+In Source Connectors this applies to both the DCP and Client connections.
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-432[KAFKAC-432]:
+Upgraded Couchbase java client to `3.12.2`
+
+* https://jira.issues.couchbase.com/browse/KAFKAC-433[KAFKAC-433]:
+Upgraded DCP client from `0.57.0` to `0.58.0`
+
 [[v4.3.7]]
 == Version 4.3.7 (19 Aug 2026)
 
