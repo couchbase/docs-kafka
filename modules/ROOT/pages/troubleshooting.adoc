@@ -30,3 +30,6 @@ confluent local services connect stop
 
 If you're sure it's not the Confluent `connect` service that's causing the port conflict, it's possible that some other software is using port 8083.
 In that case, you can <<how-to-run-multiple-workers,tell the worker to use a different port>>.
+
+// Should we add something on threads here?
+// Maybe just a link to https://medium.com/javarevisited/understanding-threads-in-spring-webflux-couchbase-kafka-and-kubernetes-a-practical-deep-dive-2a059c97b09a ?
