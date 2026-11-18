@@ -31,13 +31,13 @@ When developing a custom component, include the connector's Java API in your Mav
 
 https://packages.couchbase.com/clients/kafka/4.3.9/couchbase-kafka-connect-couchbase-4.3.9.zip[Download]
 
-This release includes a new Source Handler for BSON documents, bugfixes and dependency updates.
+This release includes a new Source Handler for BSON documents, bug fixes and dependency updates.
 
 === Enhancements
 
 * https://jira.issues.couchbase.com/browse/KAFKAC-437[KAFKAC-437]:
 *Source*
-Adds a new Source Handler for sending BSON documents to Kafka from a scope or collection using Couchbase Converge for MongoDB® Workloads.
+Adds BsonSourceHandler, which publishes documents from a Couchbase Converge for MongoDB Workloads collection to Kafka as BSON. Set couchbase.source.handler to com.couchbase.connect.kafka.handler.source.BsonSourceHandler and value.converter to org.apache.kafka.connect.converters.ByteArrayConverter. Set couchbase.scope to the MongoDB database name and couchbase.collections to the collection name.
 
 * https://jira.issues.couchbase.com/browse/KAFKAC-436[KAFKAC-436]:
 Upgraded Jackson from `2.21.5` to `2.21.7`
@@ -45,14 +45,14 @@ Upgraded Jackson from `2.21.5` to `2.21.7`
 === Bug Fixes
 
 * https://jira.issues.couchbase.com/browse/KAFKAC-438[KAFKAC-438]:
-Remove use of ByteBufferInputStream which is now an internal kafka class. This fixes issues with Kafka 4.4.0+ compatibility.
+Remove use of ByteBufferInputStream which is now an internal Kafka class. This fixes issues with Kafka 4.4.0+ compatibility.
 
 [[v4.3.8]]
 == Version 4.3.8 (15 Sep 2026)
 
 https://packages.couchbase.com/clients/kafka/4.3.8/couchbase-kafka-connect-couchbase-4.3.8.zip[Download]
 
-This maintenance release includes the ability to specify cipher suites for the couchbase connection and some dependency updates.
+This maintenance release includes the ability to specify cipher suites for the Couchbase connection and some dependency updates.
 
 === Enhancements
 
@@ -93,7 +93,7 @@ Upgraded Jsoup from `1.21.2` to `1.23.1`
 
 https://packages.couchbase.com/clients/kafka/4.3.6/couchbase-kafka-connect-couchbase-4.3.6.zip[Download]
 
-This maintenance release includes a dependency upgrade for bugfixes.
+This maintenance release includes a dependency upgrade for bug fixes.
 
 === Enhancements
 
