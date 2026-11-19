@@ -31,13 +31,9 @@ When developing a custom component, include the connector's Java API in your Mav
 
 https://packages.couchbase.com/clients/kafka/4.3.9/couchbase-kafka-connect-couchbase-4.3.9.zip[Download]
 
-This release includes a new Source Handler for BSON documents, bug fixes and dependency updates.
+This release includes bug fixes and dependency updates.
 
 === Enhancements
-
-* https://jira.issues.couchbase.com/browse/KAFKAC-437[KAFKAC-437]:
-*Source*
-Adds BsonSourceHandler, which publishes documents from a Couchbase Converge for MongoDB Workloads collection to Kafka as BSON. Set couchbase.source.handler to com.couchbase.connect.kafka.handler.source.BsonSourceHandler and value.converter to org.apache.kafka.connect.converters.ByteArrayConverter. Set couchbase.scope to the MongoDB database name and couchbase.collections to the collection name.
 
 * https://jira.issues.couchbase.com/browse/KAFKAC-436[KAFKAC-436]:
 Upgraded Jackson from `2.21.5` to `2.21.7`
